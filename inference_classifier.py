@@ -14,7 +14,6 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.stem.wordnet import WordNetLemmatizer
 from pymorphy2 import MorphAnalyzer
-!unzip /usr/share/nltk_data/corpora/wordnet.zip -d /usr/share/nltk_data/corpora/
 nltk.download('punkt')
 nltk.download('wordnet')
 nltk.download('stopwords')
@@ -81,8 +80,8 @@ with open('classifier_1.joblib.pkl', 'rb') as fid:
 
 #input = ["В рамках проекта Здоровье нации власти города выделили средства на реконструкцию и модернизацию больниц и поликлиник. Обновление медицинской инфраструктуры направлено на повышение качества и доступности медицинской помощи для всех граждан."]
 
-input_preprocessed = [pre_process(x) for x in input]
 
-label = classifier.predict(vectorizer.transform(input_preprocessed))
-
-print(class_id_to_classname[label])
+def classify(input):
+    input_preprocessed = [pre_process(x) for x in input]
+    label = classifier.predict(vectorizer.transform(input_preprocessed))
+    return class_id_to_classname[label[0]]
